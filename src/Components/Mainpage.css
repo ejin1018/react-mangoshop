@@ -1,6 +1,7 @@
 *{
   margin: 0;
   padding: 0;
+  line-height: 1;
 }
 ul,ol{
   list-style: none;
@@ -21,12 +22,16 @@ a{
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
   }
-    #header-area h1 img{
-      display: block;
-      width: 128px;
+    #header-area h1{
+      margin-bottom: 0;
     }
+      #header-area h1 img{
+        display: block;
+        width: 128px;
+      }
 #body{
   height: 100%;
   max-width: 1024px;
