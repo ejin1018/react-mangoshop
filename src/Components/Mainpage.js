@@ -7,11 +7,13 @@ const Mainpage = ()=>{
   const [products,setProducts] = useState([]);
   //result 의 형태가 Array(3) 배열로 되어있어서 []로 받음 
   // result의 형태가 객체였으면 객체로 받았을 것임!
-  const url = 'https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/';
+  // const url = 'https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/'; //포스트맨 mock서버
+  const url = 'http://localhost:8080/products';
   
   useEffect(()=>{
     console.log('mount');
     axios.get(url).then((result)=>{
+      console.log(result)
       const products = result.data.products;
       setProducts(products) 
       // 이거 useEffect 아니면 무한 조회돼서 포스트맨 터짐 ...

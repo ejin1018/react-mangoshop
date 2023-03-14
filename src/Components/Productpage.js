@@ -10,7 +10,8 @@ function Productpage(){
   const [product,setProduct] = useState(null);
 
   useEffect(()=>{
-    const url = `https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/${id}`;
+    // const url = `https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/${id}`;
+    const url = `http://localhost:8080/products/${id}`;
     
     axios.get(url).then((result)=>{
       setProduct(result.data) 
