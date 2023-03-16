@@ -1,11 +1,15 @@
 import React,{useState,useEffect} from "react";
 import {Link} from 'react-router-dom';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import axios from "axios";
 import "./Mainpage.css";
 
+dayjs.extend(relativeTime);
+
 const Mainpage = ()=>{
   const [products,setProducts] = useState([]);
-  //result 의 형태가 Array(3) 배열로 되어있어서 []로 받음 
+  // result 의 형태가 Array(3) 배열로 되어있어서 []로 받음 
   // result의 형태가 객체였으면 객체로 받았을 것임!
   // const url = 'https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/'; //포스트맨 mock서버
   const url = 'http://localhost:8080/products';
@@ -14,7 +18,7 @@ const Mainpage = ()=>{
     console.log('mount');
     axios.get(url).then((result)=>{
       console.log(result)
-      const products = result.data.products;
+      const products = result.data.product;
       setProducts(products) 
       // 이거 useEffect 아니면 무한 조회돼서 포스트맨 터짐 ...
     }).catch((error)=>{
@@ -31,6 +35,7 @@ const Mainpage = ()=>{
           <div id="product-list">
 
             {products.map((product,index)=>{
+              console.log(product.name)
               return(
               <div className="product-card" key={index}>
                 <Link className="product-link" to={`/productpage/${product.id}`}>
@@ -40,10 +45,17 @@ const Mainpage = ()=>{
                   <div className="product-content">
                     <span className="product-name">{product.name}</span>
                     <span className="product-price">{product.price} 원</span>
-                    <span className="product-seller">
-                      <img src="images/icons/avatar.png" className="product-avatar" alt=""/>
-                      {product.seller}
-                    </span>
+                    <div className="product-footer">
+                      <span className="product-seller">
+                        <img src="images/icons/avatar.png" className="product-avatar" alt=""/>
+                        {product.seller}
+                      </span>
+                      <span className="product-date">
+                        {dayjs(product.createdAt).fromNow()}
+                      </span>
+                      <br />
+                      <span className="product-date">{dayjs(product.createdAt).format('YYYY년 MM월 DD')}</span>
+                    </div>
                   </div>
                 </Link>
               </div>

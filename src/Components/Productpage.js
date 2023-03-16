@@ -10,11 +10,11 @@ function Productpage(){
   const [product,setProduct] = useState(null);
 
   useEffect(()=>{
-    // const url = `https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/${id}`;
     const url = `http://localhost:8080/products/${id}`;
     
     axios.get(url).then((result)=>{
-      setProduct(result.data) 
+      console.log(result);
+      setProduct(result.data.product)
     }).catch((error)=>{
       console.log(error)
     });
@@ -36,8 +36,8 @@ function Productpage(){
       <div className="content-box">
         <div id="name">{product.name}</div>
         <div id="price">{product.price}</div>
-        <div id="createAt">2023.03.10</div>
-        <div id="description">{product.desc}</div>
+        <div id="createAt">{product.createdAt}</div>
+        <div id="description">{product.description}</div>
       </div>
       <div className='bottom-btns'>
         <button onClick={()=>{navBtn("/")}}>Home</button>

@@ -75,7 +75,6 @@ a{
   .product-seller{
     display: flex;
     align-items: center;
-    margin-top: 12px;
     font-size: 14px;
   }
   .product-seller img{
