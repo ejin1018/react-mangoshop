@@ -1,40 +1,70 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input, Divider, InputNumber } from 'antd';
+import React, {useState} from 'react';
+import { Button, Form, Input, Divider, InputNumber, Upload } from 'antd';
+import { API_URL } from '../config/constants';
+import axios from 'axios';
 import './Uploadpage.css';
 
 
 function Uploadpage(){
   const onFinish = (val)=>{
     console.log(val);
+    axios.post(`${API_URL}/products`,{
+      name: val.pdname,
+      description: val.pddesc,
+      price: val.pdprice,
+      seller: val.pdseller,
+      imageUrl: `${API_URL}/${imageUrl}`
+    }).then((result)=>{
+      console.log(result)
+    }).catch((err)=>{
+      console.error(err)
+    });
+  }
+  const [imageUrl,setImageUrl]=useState(null);
+  const onChangeImage = function(info){
+    if(info.file.status === 'uploading'){
+      return;
+    } 
+    if(info.file.status === 'done'){
+      const response = info.file.response;
+      const imageUrl = response.imageUrl;
+      setImageUrl(imageUrl)
+    }else if(info.file.status === 'error'){
+      alert('파일 전송에 실패했습니다.')
+    }
   }
   return(
     <div id='upload-container'>
       <Form name='uploadForm' onFinish={onFinish} >
-        <Form.Item name='upload' label='상품이미지'>
-          <div id='upload-img'>
-            <img src='/images/icons/camera.png' alt='카메라 아이콘' />
-            <span>상품 이미지를 업로드 해주세요.</span>
-          </div>
+        <Form.Item name='upload'>
+          <Upload name='image' action={`${API_URL}/image`} listType='picture' showUploadList={false} onChange={onChangeImage}>
+            
+            {imageUrl ? (
+              <img id='upload-img' src={`${API_URL}/${imageUrl}`} alt='카메라 아이콘' />
+            ):(
+              <div id='upload-img-placeholder'>
+              <img src='/images/icons/camera.png' alt='카메라 아이콘' />
+              <span>상품 이미지를 업로드 해주세요.</span>
+              </div>
+            )}
+            
+          </Upload>
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>판매자</span>} name="product-seller" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
+        <Form.Item label={<span className='upload-label'>판매자</span>} name="pdseller" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
           <Input className='upload-name' placeholder='판매자를 입력해주세요' />
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>상품명</span>} name="product-name" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
+        <Form.Item label={<span className='upload-label'>상품명</span>} name="pdname" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
           <Input className='upload-name' placeholder='상품명을 입력해주세요' />
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>가격</span>} name="product-price" rules={[{type:'number', min:0, required: true, message: '필수 입력 사항입니다'}]}>
+        <Form.Item label={<span className='upload-label'>가격</span>} name="pdprice" rules={[{type:'number', min:0, required: true, message: '필수 입력 사항입니다'}]}>
           <InputNumber className='upload-name' placeholder='가격을 입력해주세요' min={0} defaultValue={0} />
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>상품설명</span>} name="product-desc" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
+        <Form.Item label={<span className='upload-label'>상품설명</span>} name="pddesc" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
           <Input.TextArea className='upload-name' id='product-desc' showCount maxLength={300} placeholder='상품 설명을 입력해주세요' />
-        </Form.Item>
-        <Divider />
-        <Form.Item label="품절" name="product-soldout">
-          <Checkbox />
         </Form.Item>
         <Divider />
         <Form.Item>

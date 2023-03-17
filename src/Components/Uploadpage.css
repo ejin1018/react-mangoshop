@@ -3,7 +3,7 @@
   padding-top:36px;
   margin: 0 auto;
 }
-#upload-img {
+#upload-img, #upload-img-placeholder {
   width: 200px;
   height: 200px;
   display: flex;

@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./Productpage.css";
+import { API_URL } from '../config/constants';
 
 function Productpage(){
   const navBtn = useNavigate();
@@ -10,7 +11,7 @@ function Productpage(){
   const [product,setProduct] = useState(null);
 
   useEffect(()=>{
-    const url = `http://localhost:8080/products/${id}`;
+    const url = `${API_URL}/products/${id}`;
     
     axios.get(url).then((result)=>{
       console.log(result);

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import axios from "axios";
+import { API_URL } from '../config/constants';
 import "./Mainpage.css";
 
 dayjs.extend(relativeTime);
@@ -11,8 +12,7 @@ const Mainpage = ()=>{
   const [products,setProducts] = useState([]);
   // result 의 형태가 Array(3) 배열로 되어있어서 []로 받음 
   // result의 형태가 객체였으면 객체로 받았을 것임!
-  // const url = 'https://b3a98c84-7840-4a6b-8dbf-ec44d79def54.mock.pstmn.io/products/'; //포스트맨 mock서버
-  const url = 'http://localhost:8080/products';
+  const url = `${API_URL}/products`;
   
   useEffect(()=>{
     console.log('mount');
