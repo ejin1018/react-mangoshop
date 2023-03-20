@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
-import { Button, Form, Input, Divider, InputNumber, Upload } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input, Divider, InputNumber, Upload, message } from 'antd';
 import { API_URL } from '../config/constants';
 import axios from 'axios';
 import './Uploadpage.css';
 
 
 function Uploadpage(){
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const info = () => {
+    messageApi.open({
+      type:'warning',
+      content:'필수 입력 사항을 모두 입력해주세요'
+    })
+  };
+
   const onFinish = (val)=>{
     console.log(val);
     axios.post(`${API_URL}/products`,{
@@ -15,9 +25,11 @@ function Uploadpage(){
       seller: val.pdseller,
       imageUrl: `${API_URL}/${imageUrl}`
     }).then((result)=>{
-      console.log(result)
+      console.log(result);
+      navigate('/',{replace:true});
     }).catch((err)=>{
-      console.error(err)
+      console.error(err);
+      message.error(`에러가 발생했습니다`);
     });
   }
   const [imageUrl,setImageUrl]=useState(null);
@@ -68,7 +80,8 @@ function Uploadpage(){
         </Form.Item>
         <Divider />
         <Form.Item>
-          <Button type='primary' id='submit-button' htmlType='submit'>상품 등록하기</Button>
+          {contextHolder}
+          <Button type='primary' id='submit-button' htmlType='submit' onClick={info}>상품 등록하기</Button>
         </Form.Item>
       </Form>
     </div>

@@ -28,15 +28,15 @@ function Productpage(){
   return(
     <>
       <div id="image-box">
-        <img src={`../${product.imageUrl}`} alt={product.desc} />
-      </div>
-      <div id="profile-box">
-        <img src="/images/icons/avatar.png" alt={product.seller} />
-        <span className="product-seller">{product.seller}</span>
+        <img src={`${product.imageUrl}`} alt={product.desc} />
       </div>
       <div className="content-box">
         <div id="name">{product.name}</div>
-        <div id="price">{product.price}</div>
+        <div id="price">{product.price} 원</div>
+        <div id="profile-box">
+          <img src="/images/icons/avatar.png" alt={product.seller} />
+          <span className="product-seller">{product.seller}</span>
+        </div>
         <div id="createAt">{product.createdAt}</div>
         <div id="description">{product.description}</div>
       </div>
