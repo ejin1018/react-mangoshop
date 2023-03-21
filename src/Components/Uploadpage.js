@@ -48,7 +48,7 @@ function Uploadpage(){
   return(
     <div id='upload-container'>
       <Form name='uploadForm' onFinish={onFinish} >
-        <Form.Item name='upload'>
+        <Form.Item name='upload' valuePropName="image">
           <Upload name='image' action={`${API_URL}/image`} listType='picture' showUploadList={false} onChange={onChangeImage}>
             
             {imageUrl ? (
@@ -63,16 +63,16 @@ function Uploadpage(){
           </Upload>
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>판매자</span>} name="pdseller" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
-          <Input className='upload-name' placeholder='판매자를 입력해주세요' />
-        </Form.Item>
-        <Divider />
         <Form.Item label={<span className='upload-label'>상품명</span>} name="pdname" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
           <Input className='upload-name' placeholder='상품명을 입력해주세요' />
         </Form.Item>
         <Divider />
-        <Form.Item label={<span className='upload-label'>가격</span>} name="pdprice" rules={[{type:'number', min:0, required: true, message: '필수 입력 사항입니다'}]}>
-          <InputNumber className='upload-name' placeholder='가격을 입력해주세요' min={0} defaultValue={0} />
+        <Form.Item label={<span className='upload-label'>판매자</span>} name="pdseller" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
+          <Input className='upload-name' placeholder='판매자를 입력해주세요' />
+        </Form.Item>
+        <Divider />
+        <Form.Item label={<span className='upload-label'>가격</span>} name="pdprice" initialValue={0} rules={[{type:'number', min:0, required: true, message: '필수 입력 사항입니다'}]}>
+          <InputNumber className='upload-name' placeholder='가격을 입력해주세요' min={0} />
         </Form.Item>
         <Divider />
         <Form.Item label={<span className='upload-label'>상품설명</span>} name="pddesc" rules={[{required: true, message: '필수 입력 사항입니다'}]}>
