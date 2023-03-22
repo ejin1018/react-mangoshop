@@ -19,7 +19,7 @@ const Mainpage = ()=>{
   useEffect(()=>{
     // 위에 있는 url과 함께 products와의 연결 로직
     axios.get(url).then((result)=>{
-      // console.log(result)
+      console.log(result)
       const products = result.data.product;
       setProducts(products) 
       // 이거 useEffect 아니면 무한 조회돼서 포스트맨 터짐 ...
