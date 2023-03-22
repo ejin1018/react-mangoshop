@@ -55,10 +55,10 @@ const Mainpage = ()=>{
         <div id="product-list">
 
           {products.map((product,index)=>{
-            console.log(product)
+            // console.log(product)
             return(
             <div className="product-card" key={index}>
-              {product.soldout === 1?<div className="product-blur"></div> : null}
+              {product.soldout === 1?<div className="product-blur">품절</div> : null}
               
               <Link className="product-link" to={`/productpage/${product.id}`}>
                 <div className="thumnail-img">

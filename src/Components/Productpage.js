@@ -32,7 +32,7 @@ function Productpage(){
     axios.post(`${API_URL}/purchase/${id}`).then((result)=>{
       getProduct();
       message.info('결제가 완료되었습니다');
-      navBtn('/',{replace:true});
+      // navBtn('/',{replace:true});
     }).catch((error)=>{
       console.log(error)
     });
@@ -54,7 +54,7 @@ function Productpage(){
         <div id="description">{product.description}</div>
       </div>
       <div className='bottom-btns'>
-        <Button type='primary' size='large' className='payment' onClick={onClickPurchase}>결제하기</Button>
+        <Button type='primary' size='large' className='payment' onClick={onClickPurchase} disabled={product.soldout === 1}>결제하기</Button>
         <br />
         <button onClick={()=>{navBtn("/")}}>Home</button>
         <button onClick={()=>{navBtn(-1)}} id="back-btn">Back</button>
